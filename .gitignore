@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.pyc
+
+# Reports and fixed copies written by the skills
+*- Design Review -*.xlsx
+*- Wording Fixes (*.csv
+*- Wording Rewrites (*.csv
+dashboard_verbiage_fix/
+strings.json
+edits.json
+
+# OS
+.DS_Store

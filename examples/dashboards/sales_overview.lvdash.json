@@ -1,0 +1,403 @@
+{
+  "datasets": [
+    {
+      "name": "ds_sales",
+      "displayName": "sales_orders",
+      "queryLines": [
+        "SELECT * FROM samples.sales.orders"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "p1",
+      "displayName": "Sales Overview",
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layout": [
+        {
+          "widget": {
+            "name": "intro",
+            "multilineTextboxSpec": {
+              "lines": [
+                "# Sales  overview\n",
+                "We're kinda tracking the colour of money this quarter!!\n"
+              ]
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 12,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "kpi_rev",
+            "spec": {
+              "version": 3,
+              "widgetType": "counter",
+              "frame": {
+                "showTitle": true,
+                "title": "Total Revenue"
+              },
+              "encodings": {
+                "value": {
+                  "fieldName": "revenue",
+                  "displayName": "Revenue"
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 2,
+            "width": 4,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "kpi_orders",
+            "spec": {
+              "version": 3,
+              "widgetType": "counter",
+              "frame": {
+                "showTitle": true,
+                "title": "Orders"
+              },
+              "encodings": {
+                "value": {
+                  "fieldName": "orders",
+                  "displayName": "Orders"
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 2,
+            "width": 4,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "kpi_margin",
+            "spec": {
+              "version": 3,
+              "widgetType": "counter",
+              "frame": {
+                "showTitle": true,
+                "title": "Gross Margin %"
+              },
+              "encodings": {
+                "value": {
+                  "fieldName": "margin",
+                  "displayName": "Margin"
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 8,
+            "y": 2,
+            "width": 4,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "rev_bar",
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "frame": {
+                "showTitle": true,
+                "title": "QTLY_REV  by region"
+              },
+              "encodings": {
+                "x": {
+                  "fieldName": "region",
+                  "displayName": "region_cd"
+                },
+                "y": {
+                  "fieldName": "sum(revenue)",
+                  "displayName": "sum(revenue)"
+                },
+                "color": {
+                  "fieldName": "region",
+                  "displayName": "Region",
+                  "scale": {
+                    "type": "categorical",
+                    "mappings": [
+                      {
+                        "value": "North",
+                        "color": "#d62728"
+                      },
+                      {
+                        "value": "South",
+                        "color": "#2ca02c"
+                      },
+                      {
+                        "value": "East",
+                        "color": "#1f77b4"
+                      },
+                      {
+                        "value": "West",
+                        "color": "#ff7f0e"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 4,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "trend",
+            "spec": {
+              "version": 3,
+              "widgetType": "line",
+              "frame": {
+                "showTitle": true,
+                "title": "Revenue trend by month",
+                "showDescription": true,
+                "description": "Monthly revenue by region; growth has come from the East since May."
+              },
+              "encodings": {
+                "x": {
+                  "fieldName": "month",
+                  "displayName": "Month"
+                },
+                "y": {
+                  "fieldName": "revenue",
+                  "displayName": "Revenue ($M)"
+                },
+                "color": {
+                  "fieldName": "region",
+                  "displayName": "Region",
+                  "scale": {
+                    "type": "categorical",
+                    "mappings": [
+                      {
+                        "value": "North",
+                        "color": "#1f77b4"
+                      },
+                      {
+                        "value": "South",
+                        "color": "#ff7f0e"
+                      },
+                      {
+                        "value": "East",
+                        "color": "#2ca02c"
+                      },
+                      {
+                        "value": "West",
+                        "color": "#9467bd"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 4,
+            "width": 6,
+            "height": 5
+          }
+        }
+      ]
+    },
+    {
+      "name": "p2",
+      "displayName": "order_detail",
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layout": [
+        {
+          "widget": {
+            "name": "f_region",
+            "spec": {
+              "version": 3,
+              "widgetType": "filter-multi-select",
+              "frame": {
+                "showTitle": true,
+                "title": "Region"
+              },
+              "selection": {
+                "defaultSelection": {
+                  "values": {
+                    "dataType": "STRING",
+                    "values": [
+                      {
+                        "value": "North"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 3,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "f_channel",
+            "spec": {
+              "version": 3,
+              "widgetType": "filter-multi-select",
+              "frame": {
+                "showTitle": false
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 0,
+            "width": 3,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "f_product",
+            "spec": {
+              "version": 3,
+              "widgetType": "filter-single-select",
+              "frame": {
+                "showTitle": true,
+                "title": "Product"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 0,
+            "width": 3,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "f_dates",
+            "spec": {
+              "version": 3,
+              "widgetType": "filter-date-range-picker",
+              "frame": {
+                "showTitle": true,
+                "title": "Order Date"
+              }
+            }
+          },
+          "position": {
+            "x": 9,
+            "y": 0,
+            "width": 3,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "tbl",
+            "spec": {
+              "version": 3,
+              "widgetType": "table",
+              "frame": {
+                "showTitle": true,
+                "title": "Order detail"
+              },
+              "encodings": {
+                "columns": [
+                  {
+                    "fieldName": "order_id",
+                    "displayName": "order_id"
+                  },
+                  {
+                    "fieldName": "orderDate",
+                    "displayName": "orderDate"
+                  },
+                  {
+                    "fieldName": "region",
+                    "displayName": "region"
+                  },
+                  {
+                    "fieldName": "channel",
+                    "displayName": "channel"
+                  },
+                  {
+                    "fieldName": "product",
+                    "displayName": "product"
+                  },
+                  {
+                    "fieldName": "qty",
+                    "displayName": "qty"
+                  },
+                  {
+                    "fieldName": "unit_price",
+                    "displayName": "unit_price"
+                  },
+                  {
+                    "fieldName": "discount",
+                    "displayName": "discount"
+                  },
+                  {
+                    "fieldName": "revenue",
+                    "displayName": "revenue"
+                  },
+                  {
+                    "fieldName": "margin",
+                    "displayName": "margin"
+                  },
+                  {
+                    "fieldName": "sales_rep",
+                    "displayName": "sales_rep"
+                  },
+                  {
+                    "fieldName": "customer_segment",
+                    "displayName": "customer_segment"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 1,
+            "width": 12,
+            "height": 8
+          }
+        },
+        {
+          "widget": {
+            "name": "note",
+            "multilineTextboxSpec": {
+              "lines": [
+                "Look at the centre region - it's really gone up a lot.\n"
+              ]
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 9,
+            "width": 12,
+            "height": 1
+          }
+        }
+      ]
+    }
+  ]
+}
